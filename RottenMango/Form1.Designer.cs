@@ -29,6 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem("1. Chrome ( 30 % )");
+            System.Windows.Forms.ListViewItem listViewItem17 = new System.Windows.Forms.ListViewItem("2. Unity ( 15 % )");
+            System.Windows.Forms.ListViewItem listViewItem18 = new System.Windows.Forms.ListViewItem("3. Visual Studio ( 10 % )");
+            System.Windows.Forms.ListViewItem listViewItem19 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem20 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem("1. Chrome ( 30 % )");
+            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem("2. Unity ( 15 % )");
+            System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem("3. Visual Studio ( 10 % )");
+            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem("");
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
@@ -37,14 +47,32 @@
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.metroTabPage1 = new MetroFramework.Controls.MetroTabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.metroComboBox1 = new MetroFramework.Controls.MetroComboBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.listView2 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.metroProgressSpinner2 = new MetroFramework.Controls.MetroProgressSpinner();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.metroProgressSpinner1 = new MetroFramework.Controls.MetroProgressSpinner();
+            this.cpuGridView = new System.Windows.Forms.DataGridView();
             this.프로세스 = new MetroFramework.Controls.MetroTabPage();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.metroProgressSpinnerCPU = new MetroFramework.Controls.MetroProgressSpinner();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -61,12 +89,17 @@
             this.설정 = new MetroFramework.Controls.MetroTabPage();
             this.label4 = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.button1 = new System.Windows.Forms.Button();
+            this.indexNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.procName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cpuValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.metroTabControl1.SuspendLayout();
             this.metroTabPage1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cpuGridView)).BeginInit();
             this.프로세스.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -86,14 +119,20 @@
             this.metroTabControl1.Controls.Add(this.설정);
             this.metroTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroTabControl1.Location = new System.Drawing.Point(20, 60);
+            this.metroTabControl1.Margin = new System.Windows.Forms.Padding(10);
             this.metroTabControl1.Name = "metroTabControl1";
             this.metroTabControl1.SelectedIndex = 0;
-            this.metroTabControl1.Size = new System.Drawing.Size(1184, 645);
+            this.metroTabControl1.Size = new System.Drawing.Size(1792, 783);
             this.metroTabControl1.TabIndex = 0;
             this.metroTabControl1.UseSelectable = true;
             // 
             // metroTabPage1
             // 
+            this.metroTabPage1.Controls.Add(this.groupBox6);
+            this.metroTabPage1.Controls.Add(this.label5);
+            this.metroTabPage1.Controls.Add(this.metroComboBox1);
+            this.metroTabPage1.Controls.Add(this.groupBox5);
+            this.metroTabPage1.Controls.Add(this.groupBox4);
             this.metroTabPage1.Controls.Add(this.button1);
             this.metroTabPage1.Controls.Add(this.groupBox3);
             this.metroTabPage1.HorizontalScrollbarBarColor = true;
@@ -101,70 +140,265 @@
             this.metroTabPage1.HorizontalScrollbarSize = 10;
             this.metroTabPage1.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage1.Name = "metroTabPage1";
-            this.metroTabPage1.Size = new System.Drawing.Size(1176, 603);
+            this.metroTabPage1.Size = new System.Drawing.Size(1784, 741);
             this.metroTabPage1.TabIndex = 2;
-            this.metroTabPage1.Text = "리스트 통계";
+            this.metroTabPage1.Text = "통계 및 리스트(&S)";
             this.metroTabPage1.VerticalScrollbarBarColor = true;
             this.metroTabPage1.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage1.VerticalScrollbarSize = 10;
+            this.metroTabPage1.Click += new System.EventHandler(this.metroTabPage1_Click);
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.groupBox6.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.groupBox6.Location = new System.Drawing.Point(1153, 84);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(330, 661);
+            this.groupBox6.TabIndex = 12;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "통계";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label5.Font = new System.Drawing.Font("굴림", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label5.Location = new System.Drawing.Point(1097, 31);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(96, 19);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "집계 기준";
+            // 
+            // metroComboBox1
+            // 
+            this.metroComboBox1.FormattingEnabled = true;
+            this.metroComboBox1.ItemHeight = 24;
+            this.metroComboBox1.Items.AddRange(new object[] {
+            "현재 시간",
+            "1일",
+            "1주일",
+            "한달",
+            "6개월",
+            "1년"});
+            this.metroComboBox1.Location = new System.Drawing.Point(1210, 26);
+            this.metroComboBox1.Name = "metroComboBox1";
+            this.metroComboBox1.Size = new System.Drawing.Size(120, 30);
+            this.metroComboBox1.TabIndex = 10;
+            this.metroComboBox1.UseSelectable = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.groupBox5.Controls.Add(this.listView2);
+            this.groupBox5.Controls.Add(this.dataGridView1);
+            this.groupBox5.Controls.Add(this.metroProgressSpinner2);
+            this.groupBox5.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.groupBox5.Location = new System.Drawing.Point(576, 84);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(540, 674);
+            this.groupBox5.TabIndex = 9;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Memory";
+            // 
+            // listView2
+            // 
+            this.listView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.listView2.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem16,
+            listViewItem17,
+            listViewItem18,
+            listViewItem19,
+            listViewItem20});
+            this.listView2.Location = new System.Drawing.Point(331, 369);
+            this.listView2.Name = "listView2";
+            this.listView2.Size = new System.Drawing.Size(197, 285);
+            this.listView2.TabIndex = 3;
+            this.listView2.UseCompatibleStateImageBehavior = false;
+            this.listView2.View = System.Windows.Forms.View.SmallIcon;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6});
+            this.dataGridView1.Location = new System.Drawing.Point(23, 33);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 27;
+            this.dataGridView1.Size = new System.Drawing.Size(496, 308);
+            this.dataGridView1.TabIndex = 3;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "No";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 40;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "메모리명";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 120;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "실제 할당된 메모리";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 180;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Process PID";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 130;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "메모리";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.HeaderText = "백분율";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            // 
+            // metroProgressSpinner2
+            // 
+            this.metroProgressSpinner2.Location = new System.Drawing.Point(17, 360);
+            this.metroProgressSpinner2.Maximum = 100;
+            this.metroProgressSpinner2.Name = "metroProgressSpinner2";
+            this.metroProgressSpinner2.Size = new System.Drawing.Size(300, 300);
+            this.metroProgressSpinner2.TabIndex = 2;
+            this.metroProgressSpinner2.UseSelectable = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.groupBox4.Controls.Add(this.label8);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.groupBox4.Location = new System.Drawing.Point(4, 10);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(390, 65);
+            this.groupBox4.TabIndex = 8;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "통계 시간 확인";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label8.Font = new System.Drawing.Font("굴림", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label8.Location = new System.Drawing.Point(274, 27);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(74, 19);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "13 : 30";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label6.Font = new System.Drawing.Font("굴림", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label6.Location = new System.Drawing.Point(131, 27);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(74, 19);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "09 : 00";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label7.Font = new System.Drawing.Font("굴림", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label7.Location = new System.Drawing.Point(223, 27);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(24, 19);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "~";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(1356, 25);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(107, 31);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "통계 확인";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.groupBox3.Controls.Add(this.dataGridView);
-            this.groupBox3.Location = new System.Drawing.Point(4, 14);
+            this.groupBox3.Controls.Add(this.listView1);
+            this.groupBox3.Controls.Add(this.metroProgressSpinner1);
+            this.groupBox3.Controls.Add(this.cpuGridView);
+            this.groupBox3.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.groupBox3.Location = new System.Drawing.Point(4, 84);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(700, 518);
+            this.groupBox3.Size = new System.Drawing.Size(536, 674);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "프로그램 리스트";
+            this.groupBox3.Text = "CPU";
             // 
-            // dataGridView
+            // listView1
             // 
-            this.dataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3,
-            this.Column4,
-            this.Column5});
-            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(3, 21);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.RowTemplate.Height = 27;
-            this.dataGridView.Size = new System.Drawing.Size(694, 494);
-            this.dataGridView.TabIndex = 0;
+            this.listView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader11});
+            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem11,
+            listViewItem12,
+            listViewItem13,
+            listViewItem14,
+            listViewItem15});
+            this.listView1.Location = new System.Drawing.Point(327, 369);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(197, 285);
+            this.listView1.TabIndex = 2;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.SmallIcon;
             // 
-            // Column1
+            // metroProgressSpinner1
             // 
-            this.Column1.HeaderText = "Process";
-            this.Column1.Name = "Column1";
+            this.metroProgressSpinner1.Location = new System.Drawing.Point(17, 360);
+            this.metroProgressSpinner1.Maximum = 100;
+            this.metroProgressSpinner1.Name = "metroProgressSpinner1";
+            this.metroProgressSpinner1.Size = new System.Drawing.Size(300, 300);
+            this.metroProgressSpinner1.Style = MetroFramework.MetroColorStyle.Orange;
+            this.metroProgressSpinner1.TabIndex = 1;
+            this.metroProgressSpinner1.UseSelectable = true;
             // 
-            // Column2
+            // cpuGridView
             // 
-            this.Column2.HeaderText = "실제 할당된 메모리";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 170;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Process PID";
-            this.Column3.Name = "Column3";
-            this.Column3.Width = 130;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "메모리";
-            this.Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "백분율";
-            this.Column5.Name = "Column5";
+            this.cpuGridView.AllowUserToAddRows = false;
+            this.cpuGridView.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.cpuGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.cpuGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.cpuGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.indexNum,
+            this.procName,
+            this.cpuValue});
+            this.cpuGridView.Location = new System.Drawing.Point(21, 33);
+            this.cpuGridView.Name = "cpuGridView";
+            this.cpuGridView.RowTemplate.Height = 27;
+            this.cpuGridView.Size = new System.Drawing.Size(496, 308);
+            this.cpuGridView.TabIndex = 0;
             // 
             // 프로세스
             // 
+            this.프로세스.Controls.Add(this.groupBox7);
             this.프로세스.Controls.Add(this.groupBox2);
             this.프로세스.Controls.Add(this.groupBox1);
             this.프로세스.Controls.Add(this.processChart);
@@ -175,17 +409,29 @@
             this.프로세스.Location = new System.Drawing.Point(4, 38);
             this.프로세스.Name = "프로세스";
             this.프로세스.Padding = new System.Windows.Forms.Padding(5);
-            this.프로세스.Size = new System.Drawing.Size(738, 541);
+            this.프로세스.Size = new System.Drawing.Size(1784, 741);
             this.프로세스.TabIndex = 0;
-            this.프로세스.Text = "프로세스";
+            this.프로세스.Text = "최적화 서비스(&B)";
             this.프로세스.VerticalScrollbarBarColor = true;
             this.프로세스.VerticalScrollbarHighlightOnWheel = false;
             this.프로세스.VerticalScrollbarSize = 10;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.groupBox7.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.groupBox7.Location = new System.Drawing.Point(654, 25);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(943, 708);
+            this.groupBox7.TabIndex = 16;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "최적화 기능";
             // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.groupBox2.Controls.Add(this.metroProgressSpinnerCPU);
+            this.groupBox2.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.groupBox2.Location = new System.Drawing.Point(3, 230);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(218, 237);
@@ -216,6 +462,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.UseableCPU);
             this.groupBox1.Controls.Add(this.UseableRAM);
+            this.groupBox1.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.groupBox1.Location = new System.Drawing.Point(3, 25);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(555, 134);
@@ -228,7 +475,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(21, 102);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(138, 15);
+            this.label3.Size = new System.Drawing.Size(151, 15);
             this.label3.TabIndex = 14;
             this.label3.Text = "RAM 사용 가능량 : ";
             // 
@@ -237,7 +484,7 @@
             this.UseableRAMPer.AutoSize = true;
             this.UseableRAMPer.Location = new System.Drawing.Point(130, 69);
             this.UseableRAMPer.Name = "UseableRAMPer";
-            this.UseableRAMPer.Size = new System.Drawing.Size(26, 15);
+            this.UseableRAMPer.Size = new System.Drawing.Size(28, 15);
             this.UseableRAMPer.TabIndex = 13;
             this.UseableRAMPer.Text = "0%";
             // 
@@ -261,7 +508,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(21, 69);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 15);
+            this.label2.Size = new System.Drawing.Size(113, 15);
             this.label2.TabIndex = 1;
             this.label2.Text = "RAM 사용량 : ";
             // 
@@ -270,7 +517,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(21, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 15);
+            this.label1.Size = new System.Drawing.Size(112, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "CPU 사용량 : ";
             // 
@@ -279,7 +526,7 @@
             this.UseableCPU.AutoSize = true;
             this.UseableCPU.Location = new System.Drawing.Point(129, 32);
             this.UseableCPU.Name = "UseableCPU";
-            this.UseableCPU.Size = new System.Drawing.Size(26, 15);
+            this.UseableCPU.Size = new System.Drawing.Size(28, 15);
             this.UseableCPU.TabIndex = 2;
             this.UseableCPU.Text = "0%";
             // 
@@ -288,7 +535,7 @@
             this.UseableRAM.AutoSize = true;
             this.UseableRAM.Location = new System.Drawing.Point(167, 102);
             this.UseableRAM.Name = "UseableRAM";
-            this.UseableRAM.Size = new System.Drawing.Size(29, 15);
+            this.UseableRAM.Size = new System.Drawing.Size(31, 15);
             this.UseableRAM.TabIndex = 3;
             this.UseableRAM.Text = "MB";
             // 
@@ -335,9 +582,9 @@
             this.설정.Location = new System.Drawing.Point(4, 38);
             this.설정.Name = "설정";
             this.설정.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.설정.Size = new System.Drawing.Size(738, 541);
+            this.설정.Size = new System.Drawing.Size(1784, 741);
             this.설정.TabIndex = 1;
-            this.설정.Text = "설정";
+            this.설정.Text = "설정(&E)";
             this.설정.VerticalScrollbarBarColor = true;
             this.설정.VerticalScrollbarHighlightOnWheel = false;
             this.설정.VerticalScrollbarSize = 10;
@@ -359,28 +606,42 @@
             this.trackBar1.Size = new System.Drawing.Size(192, 56);
             this.trackBar1.TabIndex = 15;
             // 
-            // button1
+            // indexNum
             // 
-            this.button1.Location = new System.Drawing.Point(740, 35);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "CPU 통계";
-            this.button1.UseVisualStyleBackColor = true;
+            this.indexNum.HeaderText = "No";
+            this.indexNum.Name = "indexNum";
+            this.indexNum.Width = 40;
+            // 
+            // procName
+            // 
+            this.procName.HeaderText = "프로세스명";
+            this.procName.Name = "procName";
+            this.procName.Width = 120;
+            // 
+            // cpuValue
+            // 
+            this.cpuValue.HeaderText = "CPU 사용량";
+            this.cpuValue.Name = "cpuValue";
+            this.cpuValue.Width = 150;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1224, 725);
+            this.ClientSize = new System.Drawing.Size(1832, 863);
             this.Controls.Add(this.metroTabControl1);
             this.Name = "Form1";
             this.Text = "Rotten Mango";
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.metroTabControl1.ResumeLayout(false);
             this.metroTabPage1.ResumeLayout(false);
+            this.metroTabPage1.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cpuGridView)).EndInit();
             this.프로세스.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -416,13 +677,33 @@
         private System.Windows.Forms.Label label3;
         private MetroFramework.Controls.MetroTabPage metroTabPage1;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridView cpuGridView;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label5;
+        private MetroFramework.Controls.MetroComboBox metroComboBox1;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private MetroFramework.Controls.MetroProgressSpinner metroProgressSpinner2;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private MetroFramework.Controls.MetroProgressSpinner metroProgressSpinner1;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn indexNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn procName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cpuValue;
     }
 }
 

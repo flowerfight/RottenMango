@@ -7,9 +7,11 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using RottenMango.Data;
 
 namespace RottenMango
 {
@@ -25,6 +27,15 @@ namespace RottenMango
 
         private bool _isUseable = true;
 
+        // CPU값 받기
+        List<string> processNameList = new List<string>();
+
+        private Dictionary<string, PerformanceCounter> PerformanceCounters =
+            new Dictionary<string, PerformanceCounter>();
+
+        private int no = 0;
+
+        // 메인 Form
         public Form1()
         {
             InitializeComponent();
@@ -35,9 +46,13 @@ namespace RottenMango
             timer1.Interval = 500; //0.5초 간격
             timer1.Enabled = true;
 
-            ProcessList();
+            Thread my_thread = new Thread(new ThreadStart(_check_system));
+            my_thread.Start();
+
+//            ProcessList();
         }
 
+        //사용중인 CPU
         public void GetCurrentCpuUsage()
         {
             float CpuUse = _cpu.NextValue();
@@ -52,6 +67,7 @@ namespace RottenMango
             metroProgressSpinnerCPU.Value = (int) CpuUse;
         }
 
+        //사용가능한 RAM
         public void GetAvailableRam()
         {
             float RamUse = _ram.NextValue();
@@ -66,11 +82,13 @@ namespace RottenMango
         private void timer1_Tick(object sender, EventArgs e)
         {
             GetCurrentCpuUsage(); //실시간 CPU
-            GetAvailableRam(); //실시간 RAM            
+            GetAvailableRam(); //실시간 RAM   
+
+//            ProcessList();
         }
 
 
-        //버튼 클릭시 
+        //CPU 실시간 측정 버튼 클릭시 ( 사용 or 멈춤 )  
         private void CheckUseable_Click_1(object sender, EventArgs e)
         {
             if (_isUseable)
@@ -90,26 +108,119 @@ namespace RottenMango
             GetAvailableRam(); //실시간 RAM
         }
 
-        // 프로그램 관리 리스트
-        public void ProcessList()
+
+        // 현재 CPU 값 받아오기
+        private bool isFirst = true;
+        public PerformanceCounter process_cpu;
+        List<string> list = new List<string>();
+        private string cpuName = "";
+
+        //        public void ProcessList()
+        //        {
+        //            try
+        //            {
+        //                int num = 0;
+        //                if (isFirst)
+        //                {
+        //                    foreach (Process ap in _allProc)
+        //                    {
+        //                        // 프로그램 관리 리스트
+        //                        process_cpu =
+        //                            new PerformanceCounter("Process", "% Processor Time", ap.ProcessName);
+        //                        cpuName = ap.ProcessName;
+        //
+        //                        dataGridView.Rows.Add(
+        //                            num++,
+        //                            ap.ProcessName,
+        //                            ap.WorkingSet64,
+        //                            ap.Id,
+        //                            ap.VirtualMemorySize64,
+        //                            process_cpu.NextValue()
+        //                        );
+        //                        list.Add(cpuName);
+        //                    }
+        //
+        //                    isFirst = false;
+        //                }
+        //                else
+        //                {
+        //                    for (int i = 0; i < dataGridView.RowCount - 1; i++)
+        //                    {
+        //                        try
+        //                        {
+        //                            string pidname = dataGridView.Rows[i].Cells["pidName"].Value.ToString();
+        ////                            Debug.WriteLine(pidname);
+        //                            if (pidname == "WmiApSrv") continue;
+        //                            process_cpu =
+        //                                new PerformanceCounter("Process", "% Processor Time", pidname);
+        ////                            Debug.WriteLine(process_cpu.NextValue());
+        //                            Debug.WriteLine(list.Count);
+        ////                            dataGridView.Rows[i].Cells["row"].Value = list.IndexOf(i);
+        //                        }
+        //                        catch (Exception e)
+        //                        {
+        //                            Debug.WriteLine(e);
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //            catch (Exception e)
+        //            {
+        //                Debug.WriteLine(e);
+        //            }
+        //        }
+
+        //DB 생성 (insert)
+        ProcessSnapshotData psd = new ProcessSnapshotData();
+
+        private void _check_system()
         {
-            try
+            do
             {
-                foreach (Process ap in _allProc)
+                List<Process> _processes = Process.GetProcesses().ToList();
+
+
+                foreach (Process process in _processes)
                 {
-                    dataGridView.Rows.Add(
-                        ap.ProcessName,
-                        ap.WorkingSet64,
-                        ap.Id,
-                        ap.VirtualMemorySize64
-                    );
+                    if (!processNameList.Contains(process.ProcessName))
+                    {
+                        processNameList.Add(process.ProcessName);
+
+                        PerformanceCounters.Add(process.ProcessName,
+                            new PerformanceCounter("Process", "% Processor Time", process.ProcessName));
+
+
+                        Invoke(new Action(delegate()
+                        {
+                            cpuGridView.Rows.Add(
+                                no++,
+                                process.ProcessName,
+                                PerformanceCounters[process.ProcessName].NextValue()
+                            );
+                        }));
+                    }
+
+//                    psd.Insert(
+//                        process.ProcessName,
+//                        PerformanceCounters[process.ProcessName].NextValue(),
+//                        process.WorkingSet64,
+//                        process.StartTime
+//                        );
                 }
-                
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show($"{e}");
-            }
+
+                for (int i = 0; i < cpuGridView.Rows.Count; i++)
+                {
+                    try
+                    {
+                        string ProcessName = cpuGridView.Rows[i].Cells["procName"].Value.ToString();
+                        cpuGridView.Rows[i].Cells["cpuValue"].Value = PerformanceCounters[ProcessName].NextValue();
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e);
+                    }
+                }
+            } while (true);
         }
 
         // 시작프로그램 레지스터리 리스트
@@ -125,6 +236,16 @@ namespace RottenMango
                     .Where(valueName => startupKey.GetValueKind(valueName) == RegistryValueKind.String)
                     .ToDictionary(valueName => valueName, valueName => startupKey.GetValue(valueName).ToString());
             }
+        }
+
+
+        private void metroTabPage1_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+//            Debug.WriteLine(process_cpu.NextValue().ToString());
         }
     }
 }
