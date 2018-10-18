@@ -199,7 +199,7 @@ namespace RottenMango
                             );
                         }));
                     }
-                    //dddddddddddddddddd
+                    //ddddddddddddddddddddddd
 //                    psd.Insert(
 //                        process.ProcessName,
 //                        PerformanceCounters[process.ProcessName].NextValue(),
