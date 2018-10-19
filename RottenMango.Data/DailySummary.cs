@@ -15,10 +15,11 @@ namespace RottenMango.Data
     public partial class DailySummary
     {
         public int statisticId { get; set; }
+        public string name { get; set; }
         public double totalMemory { get; set; }
         public double avgMemory { get; set; }
         public double totalCPU { get; set; }
         public double avgCPU { get; set; }
-        public System.DateTime Date { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
     }
 }

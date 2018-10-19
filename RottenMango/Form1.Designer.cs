@@ -29,20 +29,20 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem("1. Chrome ( 30 % )");
-            System.Windows.Forms.ListViewItem listViewItem17 = new System.Windows.Forms.ListViewItem("2. Unity ( 15 % )");
-            System.Windows.Forms.ListViewItem listViewItem18 = new System.Windows.Forms.ListViewItem("3. Visual Studio ( 10 % )");
-            System.Windows.Forms.ListViewItem listViewItem19 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem20 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem("1. Chrome ( 30 % )");
-            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem("2. Unity ( 15 % )");
-            System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem("3. Visual Studio ( 10 % )");
-            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("1. Chrome ( 30 % )");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("2. Unity ( 15 % )");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("3. Visual Studio ( 10 % )");
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("1. Chrome ( 30 % )");
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("2. Unity ( 15 % )");
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("3. Visual Studio ( 10 % )");
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
@@ -53,7 +53,7 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.listView2 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.MemoryGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,6 +71,9 @@
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.metroProgressSpinner1 = new MetroFramework.Controls.MetroProgressSpinner();
             this.cpuGridView = new System.Windows.Forms.DataGridView();
+            this.indexNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.procName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cpuValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.프로세스 = new MetroFramework.Controls.MetroTabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -89,14 +92,11 @@
             this.설정 = new MetroFramework.Controls.MetroTabPage();
             this.label4 = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.indexNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.procName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cpuValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.metroTabControl1.SuspendLayout();
             this.metroTabPage1.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MemoryGridView)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cpuGridView)).BeginInit();
@@ -191,7 +191,7 @@
             // 
             this.groupBox5.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.groupBox5.Controls.Add(this.listView2);
-            this.groupBox5.Controls.Add(this.dataGridView1);
+            this.groupBox5.Controls.Add(this.MemoryGridView);
             this.groupBox5.Controls.Add(this.metroProgressSpinner2);
             this.groupBox5.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.groupBox5.Location = new System.Drawing.Point(576, 84);
@@ -207,11 +207,11 @@
             this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.listView2.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem16,
-            listViewItem17,
-            listViewItem18,
-            listViewItem19,
-            listViewItem20});
+            listViewItem1,
+            listViewItem2,
+            listViewItem3,
+            listViewItem4,
+            listViewItem5});
             this.listView2.Location = new System.Drawing.Point(331, 369);
             this.listView2.Name = "listView2";
             this.listView2.Size = new System.Drawing.Size(197, 285);
@@ -219,24 +219,24 @@
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.SmallIcon;
             // 
-            // dataGridView1
+            // MemoryGridView
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.MemoryGridView.AllowUserToAddRows = false;
+            this.MemoryGridView.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
+            this.MemoryGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.MemoryGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.MemoryGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5,
             this.dataGridViewTextBoxColumn6});
-            this.dataGridView1.Location = new System.Drawing.Point(23, 33);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 27;
-            this.dataGridView1.Size = new System.Drawing.Size(496, 308);
-            this.dataGridView1.TabIndex = 3;
+            this.MemoryGridView.Location = new System.Drawing.Point(23, 33);
+            this.MemoryGridView.Name = "MemoryGridView";
+            this.MemoryGridView.RowTemplate.Height = 27;
+            this.MemoryGridView.Size = new System.Drawing.Size(496, 308);
+            this.MemoryGridView.TabIndex = 3;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -358,11 +358,11 @@
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader11});
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem11,
-            listViewItem12,
-            listViewItem13,
-            listViewItem14,
-            listViewItem15});
+            listViewItem6,
+            listViewItem7,
+            listViewItem8,
+            listViewItem9,
+            listViewItem10});
             this.listView1.Location = new System.Drawing.Point(327, 369);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(197, 285);
@@ -395,6 +395,24 @@
             this.cpuGridView.RowTemplate.Height = 27;
             this.cpuGridView.Size = new System.Drawing.Size(496, 308);
             this.cpuGridView.TabIndex = 0;
+            // 
+            // indexNum
+            // 
+            this.indexNum.HeaderText = "No";
+            this.indexNum.Name = "indexNum";
+            this.indexNum.Width = 40;
+            // 
+            // procName
+            // 
+            this.procName.HeaderText = "프로세스명";
+            this.procName.Name = "procName";
+            this.procName.Width = 120;
+            // 
+            // cpuValue
+            // 
+            this.cpuValue.HeaderText = "CPU 사용량";
+            this.cpuValue.Name = "cpuValue";
+            this.cpuValue.Width = 150;
             // 
             // 프로세스
             // 
@@ -542,22 +560,22 @@
             // processChart
             // 
             this.processChart.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.Name = "ChartArea1";
-            this.processChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.processChart.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.processChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.processChart.Legends.Add(legend1);
             this.processChart.Location = new System.Drawing.Point(227, 230);
             this.processChart.Name = "processChart";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series3.Legend = "Legend1";
-            series3.Name = "RAM";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series4.Legend = "Legend1";
-            series4.Name = "CPU";
-            this.processChart.Series.Add(series3);
-            this.processChart.Series.Add(series4);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Legend = "Legend1";
+            series1.Name = "RAM";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series2.Legend = "Legend1";
+            series2.Name = "CPU";
+            this.processChart.Series.Add(series1);
+            this.processChart.Series.Add(series2);
             this.processChart.Size = new System.Drawing.Size(379, 251);
             this.processChart.TabIndex = 11;
             this.processChart.Text = "chart1";
@@ -606,24 +624,6 @@
             this.trackBar1.Size = new System.Drawing.Size(192, 56);
             this.trackBar1.TabIndex = 15;
             // 
-            // indexNum
-            // 
-            this.indexNum.HeaderText = "No";
-            this.indexNum.Name = "indexNum";
-            this.indexNum.Width = 40;
-            // 
-            // procName
-            // 
-            this.procName.HeaderText = "프로세스명";
-            this.procName.Name = "procName";
-            this.procName.Width = 120;
-            // 
-            // cpuValue
-            // 
-            this.cpuValue.HeaderText = "CPU 사용량";
-            this.cpuValue.Name = "cpuValue";
-            this.cpuValue.Width = 150;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -637,7 +637,7 @@
             this.metroTabPage1.ResumeLayout(false);
             this.metroTabPage1.PerformLayout();
             this.groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MemoryGridView)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -690,7 +690,7 @@
         private MetroFramework.Controls.MetroProgressSpinner metroProgressSpinner1;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView MemoryGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;

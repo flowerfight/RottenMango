@@ -67,6 +67,7 @@ namespace RottenMango
             metroProgressSpinnerCPU.Value = (int) CpuUse;
         }
 
+        DailySummaryData dailySummaryData = new DailySummaryData(); // total cpu, memory => DB conn        
         //사용가능한 RAM
         public void GetAvailableRam()
         {
@@ -76,6 +77,9 @@ namespace RottenMango
             UseableRAMPer.Text = Convert.ToString((int) ramUsePersentage) + "%";
             metroProgressBarRAM.Value = (int) ramUsePersentage;
             processChart.Series["RAM"].Points.AddY(ramUsePersentage);
+
+            // insert to DailySummary DB
+            dailySummaryData.Insert();
         }
 
         //실시간 처리 (1초마다 변경)
@@ -196,16 +200,14 @@ namespace RottenMango
                                 no++,
                                 process.ProcessName,
                                 PerformanceCounters[process.ProcessName].NextValue()
-                            );
+                            );                            
                         }));
+
+//                        psd.Insert(
+//                            process.ProcessName,
+//
+//                            );
                     }
-                    //ddddddddddddddddddddddd
-//                    psd.Insert(
-//                        process.ProcessName,
-//                        PerformanceCounters[process.ProcessName].NextValue(),
-//                        process.WorkingSet64,
-//                        process.StartTime
-//                        );
                 }
 
                 for (int i = 0; i < cpuGridView.Rows.Count; i++)

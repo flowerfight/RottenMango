@@ -25,7 +25,7 @@ namespace RottenMango.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<DailySummary> DailySummaries { get; set; }
         public virtual DbSet<ProcessSnapshot> ProcessSnapshots { get; set; }
+        public virtual DbSet<DailySummary> DailySummaries { get; set; }
     }
 }

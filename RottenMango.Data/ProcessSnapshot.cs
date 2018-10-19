@@ -18,7 +18,6 @@ namespace RottenMango.Data
         public string name { get; set; }
         public int usingCpu { get; set; }
         public int usingMemory { get; set; }
-        public int format { get; set; }
         public System.DateTime recordTime { get; set; }
     }
 }
