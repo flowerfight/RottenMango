@@ -22,7 +22,7 @@ namespace RottenMango.Data
         {
             var context = new RottenMangoEntities();
             context.Database.Log = PrintSQL;
-
+            
             context.Configuration.ProxyCreationEnabled = false;
 
             return context;

@@ -56,10 +56,10 @@ namespace RottenMango
         public void GetCurrentCpuUsage()
         {
             float CpuUse = _cpu.NextValue();
-            if (CpuUse >= 90)
-                MessageBox.Show("위험!!");
-            else if (CpuUse >= 70)
-                MessageBox.Show("경고!!");
+//            if (CpuUse >= 90)
+//                MessageBox.Show("위험!!");
+//            else if (CpuUse >= 70)
+//                MessageBox.Show("경고!!");
             UseableCPU.Text = Convert.ToString((int) CpuUse) + "%";
             metroProgressBarCPU.Value = (int) CpuUse;
             processChart.Series["CPU"].Points.AddY(CpuUse);
@@ -67,7 +67,6 @@ namespace RottenMango
             metroProgressSpinnerCPU.Value = (int) CpuUse;
         }
 
-        DailySummaryData dailySummaryData = new DailySummaryData(); // total cpu, memory => DB conn        
         //사용가능한 RAM
         public void GetAvailableRam()
         {
@@ -77,9 +76,6 @@ namespace RottenMango
             UseableRAMPer.Text = Convert.ToString((int) ramUsePersentage) + "%";
             metroProgressBarRAM.Value = (int) ramUsePersentage;
             processChart.Series["RAM"].Points.AddY(ramUsePersentage);
-
-            // insert to DailySummary DB
-            dailySummaryData.Insert();
         }
 
         //실시간 처리 (1초마다 변경)
@@ -118,6 +114,9 @@ namespace RottenMango
         public PerformanceCounter process_cpu;
         List<string> list = new List<string>();
         private string cpuName = "";
+        
+        
+        
 
         //        public void ProcessList()
         //        {
@@ -174,8 +173,9 @@ namespace RottenMango
         //            }
         //        }
 
-        //DB 생성 (insert)
-        ProcessSnapshotData psd = new ProcessSnapshotData();
+
+        DailySummaryData dailySummaryData = new DailySummaryData(); // total cpu, memory => DB conn         
+        ProcessSnapshotData processSnapshotdata = new ProcessSnapshotData();
 
         private void _check_system()
         {
@@ -200,28 +200,41 @@ namespace RottenMango
                                 no++,
                                 process.ProcessName,
                                 PerformanceCounters[process.ProcessName].NextValue()
-                            );                            
+                            );
                         }));
-
-//                        psd.Insert(
-//                            process.ProcessName,
-//
-//                            );
                     }
                 }
 
+
+                float usingCpu;
+                string ProcessName;
                 for (int i = 0; i < cpuGridView.Rows.Count; i++)
                 {
                     try
                     {
-                        string ProcessName = cpuGridView.Rows[i].Cells["procName"].Value.ToString();
+                        ProcessName = cpuGridView.Rows[i].Cells["procName"].Value.ToString();
+                        usingCpu = PerformanceCounters[ProcessName].NextValue();
+
                         cpuGridView.Rows[i].Cells["cpuValue"].Value = PerformanceCounters[ProcessName].NextValue();
+
+                        if (usingCpu != 0)
+                            processSnapshotdata.Insert(
+                                ProcessName,
+                                usingCpu,
+                                55,
+                                DateTime.Now
+                            );
                     }
                     catch (Exception e)
                     {
                         Debug.WriteLine(e);
                     }
                 }
+
+                processSnapshotdata.Getcontext().SaveChanges();
+                
+
+                
             } while (true);
         }
 
@@ -247,7 +260,9 @@ namespace RottenMango
 
         private void button1_Click(object sender, EventArgs e)
         {
-//            Debug.WriteLine(process_cpu.NextValue().ToString());
+            string start = "2018 - 10 - 19 15:48:22.483";
+            string end = "2018-10-19 15:48:27.103";
+            processSnapshotdata.SummaryMaker(start, end);
         }
     }
 }

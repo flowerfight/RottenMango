@@ -16,8 +16,8 @@ namespace RottenMango.Data
     {
         public int ProcSId { get; set; }
         public string name { get; set; }
-        public int usingCpu { get; set; }
-        public int usingMemory { get; set; }
+        public double usingCpu { get; set; }
+        public double usingMemory { get; set; }
         public System.DateTime recordTime { get; set; }
     }
 }
