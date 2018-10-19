@@ -48,6 +48,8 @@ namespace RottenMango
 
             Thread my_thread = new Thread(new ThreadStart(_check_system));
             my_thread.Start();
+            
+            
 
 //            ProcessList();
         }
@@ -114,9 +116,6 @@ namespace RottenMango
         public PerformanceCounter process_cpu;
         List<string> list = new List<string>();
         private string cpuName = "";
-        
-        
-        
 
         //        public void ProcessList()
         //        {
@@ -178,11 +177,12 @@ namespace RottenMango
         ProcessSnapshotData processSnapshotdata = new ProcessSnapshotData();
 
         private void _check_system()
-        {
+        {           
             do
             {
                 List<Process> _processes = Process.GetProcesses().ToList();
-
+                //프로세스별 Memory Dictionary
+                Dictionary<string, float> usingMemory = new Dictionary<string, float>();
 
                 foreach (Process process in _processes)
                 {
@@ -192,14 +192,20 @@ namespace RottenMango
 
                         PerformanceCounters.Add(process.ProcessName,
                             new PerformanceCounter("Process", "% Processor Time", process.ProcessName));
-
+                        usingMemory.Add(process.ProcessName, process.WorkingSet64);
 
                         Invoke(new Action(delegate()
                         {
                             cpuGridView.Rows.Add(
-                                no++,
+                                no,
                                 process.ProcessName,
                                 PerformanceCounters[process.ProcessName].NextValue()
+                                );
+
+                            MemoryGridView.Rows.Add(
+                                no++,
+                                process.ProcessName,
+                                (double)usingMemory[process.ProcessName]
                             );
                         }));
                     }
@@ -208,12 +214,14 @@ namespace RottenMango
 
                 float usingCpu;
                 string ProcessName;
+               
                 for (int i = 0; i < cpuGridView.Rows.Count; i++)
                 {
                     try
                     {
                         ProcessName = cpuGridView.Rows[i].Cells["procName"].Value.ToString();
                         usingCpu = PerformanceCounters[ProcessName].NextValue();
+//                        usingMemory = Process.GetProcessesByName(ProcessName).
 
                         cpuGridView.Rows[i].Cells["cpuValue"].Value = PerformanceCounters[ProcessName].NextValue();
 
@@ -221,7 +229,7 @@ namespace RottenMango
                             processSnapshotdata.Insert(
                                 ProcessName,
                                 usingCpu,
-                                55,
+                                usingMemory[ProcessName],
                                 DateTime.Now
                             );
                     }
@@ -253,16 +261,28 @@ namespace RottenMango
             }
         }
 
-
+        // 탭 별 기능
         private void metroTabPage1_Click(object sender, EventArgs e)
         {
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        // 기간별 통계확인
+        private void statistic_Button_Click(object sender, EventArgs e)
         {
             string start = "2018 - 10 - 19 15:48:22.483";
             string end = "2018-10-19 15:48:27.103";
             processSnapshotdata.SummaryMaker(start, end);
+            
+
+            if (period.SelectedItem == "현재 시간")
+            {
+
+            }
+//            1일
+//            1주일
+//                한달
+//            6개월
+//            1년
         }
     }
 }

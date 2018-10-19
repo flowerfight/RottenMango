@@ -73,7 +73,7 @@ namespace RottenMango.Data
                 group x by x.name into g
                 select new {
                     avgCPU = g.Average(y => y.usingCpu),
-                    avgMemory = 0,
+                    avgMemory = g.Average(y => y.usingMemory),
                     Date = _start,
                     name = g.Key,
                     statisticId = 1,
