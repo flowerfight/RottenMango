@@ -11,11 +11,9 @@
           </Key>
           <Property Name="statisticId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" />
-          <Property Name="totalMemory" Type="float" Nullable="false" />
           <Property Name="avgMemory" Type="float" Nullable="false" />
-          <Property Name="totalCPU" Type="float" Nullable="false" />
           <Property Name="avgCPU" Type="float" Nullable="false" />
-          <Property Name="Date" Type="date" />
+          <Property Name="Date" Type="datetime" />
         </EntityType>
         <EntityType Name="ProcessSnapshot">
           <Key>
@@ -55,11 +53,9 @@
           </Key>
           <Property Name="statisticId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="totalMemory" Type="Double" Nullable="false" />
           <Property Name="avgMemory" Type="Double" Nullable="false" />
-          <Property Name="totalCPU" Type="Double" Nullable="false" />
           <Property Name="avgCPU" Type="Double" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -83,9 +79,7 @@
               <MappingFragment StoreEntitySet="DailySummary">
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="avgCPU" ColumnName="avgCPU" />
-                <ScalarProperty Name="totalCPU" ColumnName="totalCPU" />
                 <ScalarProperty Name="avgMemory" ColumnName="avgMemory" />
-                <ScalarProperty Name="totalMemory" ColumnName="totalMemory" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="statisticId" ColumnName="statisticId" />
               </MappingFragment>

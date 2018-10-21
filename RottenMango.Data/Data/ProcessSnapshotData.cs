@@ -4,11 +4,12 @@ using System.ComponentModel.Design;
 using System.Data.Entity.Core.Common.CommandTrees;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection.Emit;
 
 
 namespace RottenMango.Data
 {
-
+    
     public class ProcessSnapshotData : EntityData<ProcessSnapshot>
     {
         RottenMangoEntities context = new RottenMangoEntities();
@@ -89,11 +90,9 @@ namespace RottenMango.Data
             {
                 _dailySummary.Insert(
                     item.name,
-                    1,
-                    1,
-                    1,
+                    item.avgMemory,
                     item.avgCPU,
-                    _start
+                    DateTime.Today
                     );
             }
 
@@ -116,5 +115,131 @@ namespace RottenMango.Data
 
         }
 
+        public class SurrmaryInfo
+        {
+            public string name { get; set; }
+            public double avgCPU { get; set; }
+            public string avgMemory { get; set; }
+            public DateTime Date { get; set; }
+        }
+
+        public List<SurrmaryInfo> GetSummary(string condition)
+        {
+            List<SurrmaryInfo> surrmaryInfos = new List<SurrmaryInfo>();
+            int day = 0;
+
+            if (condition == "1일")
+            {
+                var query = from x in context.ProcessSnapshots
+                    where (x.recordTime >= DateTime.Today)
+                    group x by x.name into g
+                    select new
+                    {
+                        avgCPU = g.Average(y => y.usingCpu),
+                        avgMemory = g.Average(y => y.usingMemory),
+                        Date = DateTime.Today,
+                        name = g.Key
+                    };
+
+                foreach (var item in query)
+                {
+                    string memory;
+
+                    if (item.avgMemory >= 1024 * 1024)
+                    {
+                        memory = Math.Round((item.avgMemory / 1024 / 1024), 2).ToString() + " MB";
+                    }
+                    else if (item.avgMemory >= 1024)
+                    {
+                        memory = Math.Round((item.avgMemory / 1024), 2).ToString() + " KB";
+                    }
+                    else
+                    {
+                        memory = (item.avgMemory).ToString() + " B";
+                    }
+
+                    surrmaryInfos.Add(new SurrmaryInfo()
+                    {
+                        name = item.name,
+                        avgCPU = Math.Round(item.avgCPU, 2),
+                        avgMemory = memory,
+                        Date = item.Date
+                    });
+                }
+
+                return surrmaryInfos;
+            }
+            else if (condition == "1주일")
+            {
+                day = -7;
+
+            }
+            else if (condition == "1달")
+            {
+                day = -30;
+
+            }
+            else if (condition == "6달")
+            {
+                day = -180;
+
+            }
+            else if (condition == "1년")
+            {
+                day = -365;
+            }
+
+            DateTime startDay = DateTime.Today.AddDays(day);
+
+            var _query = from x in context.DailySummaries
+                where (x.Date >= startDay &&
+                       x.Date <= DateTime.Today)
+                select x;
+
+            foreach (var item in _query)
+            {
+                string memory;
+
+                if (item.avgMemory >= 1024 * 1024)
+                {
+                    memory = Math.Round((item.avgMemory / 1024 / 1024),2).ToString() + " MB";
+                }
+                else if (item.avgMemory >= 1024)
+                {
+                    memory = Math.Round((item.avgMemory / 1024), 2).ToString() + " KB";
+                }
+                else
+                {
+                    memory = (item.avgMemory).ToString() + " B";
+                }
+
+                surrmaryInfos.Add(new SurrmaryInfo()
+                {
+                    name = item.name,
+                    avgCPU = Math.Round(item.avgCPU,2),
+                    avgMemory = memory,
+                    Date = (DateTime)item.Date
+                });
+            }
+
+            return surrmaryInfos;
+        }
+//        public List<string> GetTop10CPUList()
+//        {
+//            List<string> top10CPUList = new List<string>();
+//
+//            var query = from x in context.ProcessSnapshots
+//                orderby x.usingCpu descending 
+//                select x;
+//
+//            foreach (var item in query.Take(10).ToList())
+//            {
+//                top10CPUList.Add(item.name);
+//            }
+//
+//            return top10CPUList;
+//        }
     }
+
+
 }

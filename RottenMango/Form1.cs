@@ -12,9 +12,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using RottenMango.Data;
+using System.Management;
 
 namespace RottenMango
 {
+
+
     public partial class Form1 : MetroFramework.Forms.MetroForm
     {
         private readonly PerformanceCounter _cpu = new PerformanceCounter("Processor", "% Processor Time", "_Total");
@@ -30,10 +33,15 @@ namespace RottenMango
         // CPU값 받기
         List<string> processNameList = new List<string>();
 
-        private Dictionary<string, PerformanceCounter> PerformanceCounters =
+        private Dictionary<string, PerformanceCounter> PerformanceCountersCPU =
             new Dictionary<string, PerformanceCounter>();
 
+        private Dictionary<string, Process> PerformanceCountersRAM =
+            new Dictionary<string, Process>();
+
         private int no = 0;
+
+        private Boolean statisticEnable = false;
 
         // 메인 Form
         public Form1()
@@ -48,8 +56,7 @@ namespace RottenMango
 
             Thread my_thread = new Thread(new ThreadStart(_check_system));
             my_thread.Start();
-            
-            
+
 
 //            ProcessList();
         }
@@ -176,62 +183,107 @@ namespace RottenMango
         DailySummaryData dailySummaryData = new DailySummaryData(); // total cpu, memory => DB conn         
         ProcessSnapshotData processSnapshotdata = new ProcessSnapshotData();
 
+        // use `/ 1048576` to get ram in MB
+        // and `/ (1048576 * 1024)` or `/ 1048576 / 1024` to get ram in GB
+        private double getRAMsize()
+        {
+            ManagementClass mc = new ManagementClass("Win32_ComputerSystem");
+            ManagementObjectCollection moc = mc.GetInstances();
+            foreach (ManagementObject item in moc)
+            {
+                return Math.Round(Convert.ToDouble(item.Properties["TotalPhysicalMemory"].Value) / 1048576, 0);
+            }
+
+            return 0;
+        }
+
         private void _check_system()
-        {           
+        {
             do
             {
                 List<Process> _processes = Process.GetProcesses().ToList();
                 //프로세스별 Memory Dictionary
                 Dictionary<string, float> usingMemory = new Dictionary<string, float>();
-
+                
                 foreach (Process process in _processes)
                 {
+                    if(process.ProcessName == "Idle") continue;
+
+                    if (usingMemory.ContainsKey(process.ProcessName))
+                    {
+                        usingMemory[process.ProcessName] = usingMemory[process.ProcessName] +
+                            process.WorkingSet64 ;
+                    }
+                    else
+                    {
+                        usingMemory.Add(process.ProcessName,process.WorkingSet64);
+                    }
+
                     if (!processNameList.Contains(process.ProcessName))
                     {
                         processNameList.Add(process.ProcessName);
 
-                        PerformanceCounters.Add(process.ProcessName,
+                        PerformanceCountersCPU.Add(process.ProcessName,
                             new PerformanceCounter("Process", "% Processor Time", process.ProcessName));
-                        usingMemory.Add(process.ProcessName, process.WorkingSet64);
+
+                        PerformanceCountersRAM.Add(process.ProcessName,
+                            process);
+
 
                         Invoke(new Action(delegate()
                         {
-                            cpuGridView.Rows.Add(
-                                no,
-                                process.ProcessName,
-                                PerformanceCounters[process.ProcessName].NextValue()
+                            try
+                            {
+                                cpuGridView.Rows.Add(
+                                    no,
+                                    process.ProcessName,
+                                    PerformanceCountersCPU[process.ProcessName].NextValue()
                                 );
 
-                            MemoryGridView.Rows.Add(
-                                no++,
-                                process.ProcessName,
-                                (double)usingMemory[process.ProcessName]
-                            );
+                                MemoryGridView.Rows.Add(
+                                    no++,
+                                    process.ProcessName,
+                                    0
+                                );
+                            }
+                            catch (Exception e)
+                            {
+
+                            }
                         }));
                     }
                 }
 
-
                 float usingCpu;
+                float usingMemoryValue;
                 string ProcessName;
-               
+
+                Dictionary<string,float> cpuUsageList
+                    = new Dictionary<string, float>();
+
+                Dictionary<string, float> memoryUsageList
+                    = new Dictionary<string, float>();
+
                 for (int i = 0; i < cpuGridView.Rows.Count; i++)
                 {
                     try
                     {
                         ProcessName = cpuGridView.Rows[i].Cells["procName"].Value.ToString();
-                        usingCpu = PerformanceCounters[ProcessName].NextValue();
+                        usingCpu = PerformanceCountersCPU[ProcessName].NextValue()/Environment.ProcessorCount;
 //                        usingMemory = Process.GetProcessesByName(ProcessName).
 
-                        cpuGridView.Rows[i].Cells["cpuValue"].Value = PerformanceCounters[ProcessName].NextValue();
+                        cpuGridView.Rows[i].Cells["cpuValue"].Value = usingCpu;
 
-                        if (usingCpu != 0)
+                        if (usingCpu != 0 && ProcessName != "Idle") {
+                            cpuUsageList.Add(ProcessName, usingCpu);
+                            memoryUsageList.Add(ProcessName, usingMemory[ProcessName]);
                             processSnapshotdata.Insert(
                                 ProcessName,
                                 usingCpu,
                                 usingMemory[ProcessName],
                                 DateTime.Now
                             );
+                        }
                     }
                     catch (Exception e)
                     {
@@ -239,10 +291,89 @@ namespace RottenMango
                     }
                 }
 
-                processSnapshotdata.Getcontext().SaveChanges();
-                
+                for (int i = 0; i < MemoryGridView.Rows.Count; i++)
+                {
+                    try
+                    {
+                        ProcessName = MemoryGridView.Rows[i].Cells["memoryProcName"].Value.ToString();
+                        usingMemoryValue = usingMemory[ProcessName];
+                        //                        usingMemory = Process.GetProcessesByName(ProcessName).
 
-                
+                        double memvalue = (double) usingMemoryValue;
+
+                        if (memvalue > 1024 * 1024)
+                        {
+                            MemoryGridView.Rows[i].Cells["memoryValue"].Value 
+                                = Math.Round(memvalue/1024/1024,2) + " MB";
+                        }
+                        else if (memvalue > 1024)
+                        {
+                            MemoryGridView.Rows[i].Cells["memoryValue"].Value
+                                = Math.Round(memvalue / 1024, 2) + " KB";
+                        }
+                        else
+
+                        {
+                            MemoryGridView.Rows[i].Cells["memoryValue"].Value
+                                = memvalue + " B";
+                        }
+                        
+
+                        if (usingMemoryValue != 0 && ProcessName != "Idle")
+                        {
+                            memoryUsageList.Add(ProcessName, usingMemoryValue);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e);
+                    }
+                }
+
+                //그리드뷰 정렬
+                //                cpuGridView.Sort();
+
+                processSnapshotdata.Getcontext().SaveChanges();
+
+
+                // cpu 및 memory 점유율 상위10 표시
+                var queryOfCPU = from x in cpuUsageList
+                            orderby x.Value descending 
+                            select x;
+
+                var listOfTop10CPU = queryOfCPU.Take(10).ToList();
+
+                var queryOfRAM = from x in memoryUsageList
+                    orderby x.Value descending
+                    select x;
+
+                var listOfTop10RAM = queryOfRAM.Take(10).ToList();
+
+                for (int i=0; i<10; i++)
+                {
+                    Invoke(new Action(delegate ()
+                    {
+                        if(listOfTop10CPU.Count-1 >= i)
+                            top10CPUList.Items[i].Text = (i+1)+ ". " + listOfTop10CPU[i].Key +" ("+ 
+                                                         Math.Round(listOfTop10CPU[i].Value,2) + "%)";
+                        else
+                        {
+                            top10CPUList.Items[i].Text = "";
+                        }
+
+                        if (listOfTop10RAM.Count - 1 >= i)
+                            top10RAMList.Items[i].Text = (i + 1) + ". " + listOfTop10RAM[i].Key + " (" 
+                                                         +Math.Round(
+                                                         (listOfTop10RAM[i].Value/1024/1024/ getRAMsize())*100,2) + "%)";
+                        else
+                        {
+                            top10RAMList.Items[i].Text = "";
+                        }
+                        
+                    }));
+                }
+               
+
             } while (true);
         }
 
@@ -266,23 +397,38 @@ namespace RottenMango
         {
         }
 
+
+        
         // 기간별 통계확인
         private void statistic_Button_Click(object sender, EventArgs e)
         {
             string start = "2018 - 10 - 19 15:48:22.483";
             string end = "2018-10-19 15:48:27.103";
             processSnapshotdata.SummaryMaker(start, end);
-            
 
-            if (period.SelectedItem == "현재 시간")
+            statisticGridView.Rows.Clear();
+
+            if (!statisticEnable)
             {
+                statisticEnable = true;
 
+                foreach (var item in processSnapshotdata.GetSummary(period.SelectedItem.ToString()))
+                {
+                    Invoke(new Action(delegate() { statisticGridView.Rows.Add(
+                        item.name,
+                        item.avgCPU,
+                        item.avgMemory,
+                        item.Date.Year + "-" + item.Date.Month + "-" +   item.Date.Day
+                        ); }));
+                }
+
+                statisticEnable = false;
             }
-//            1일
-//            1주일
-//                한달
-//            6개월
-//            1년
+            else
+            {
+                Debug.WriteLine("사용불가");
+            }
+
         }
     }
 }
